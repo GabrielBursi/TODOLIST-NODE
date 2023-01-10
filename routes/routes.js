@@ -1,10 +1,11 @@
 import express from 'express'
 
 //!controllers
-import { index } from '../controllers/TaskController.js'
+import { createTask, getAllTasks } from '../controllers/TaskController.js'
 
 const router = express.Router()
 
-router.get('/', index)
+router.get('/', getAllTasks)
+router.post('/create', createTask)
 
 export default router
