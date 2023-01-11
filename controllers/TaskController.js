@@ -93,10 +93,30 @@ async function deleteOne(req, res){
     }
 }
 
+async function checkTask(req, res){
+    const { id } = req.params
+
+    try {
+        await TaskModel.findOne({_id: id})
+            .then(task => {
+                task.check = !task.check
+                TaskModel.updateOne({_id: id}, task)
+                    .then(() => {
+                        res.redirect('/')
+                    })
+            }).catch(error => {
+                res.render('index', { error })
+            })
+    } catch (error) {
+        res.render('index', { error })
+    }
+}
+
 export {
     getAllTasks,
     createTask,
     getById,
     updateOne,
-    deleteOne
+    deleteOne,
+    checkTask
 }
