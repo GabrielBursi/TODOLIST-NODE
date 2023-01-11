@@ -15,11 +15,9 @@
     </form>
 
     <ul>
-        <% tasks.forEach((task) => { %>
-            <li>
-                <%= task.task | <%= task.date %>
-            </li>
-        <% }) %>
+        <% tasks.forEach(task => { %>
+            <li><%= task.task %> | <%= task.date %></li>
+        <% }); %>
     </ul>
 
     <script src="script.js"></script>

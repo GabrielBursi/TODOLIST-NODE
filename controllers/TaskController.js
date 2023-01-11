@@ -7,10 +7,10 @@ async function getAllTasks(req, res){
                 res.render('index',{tasks})
             })
             .catch(err => {
-                res.status(500).render('index', {erro: err.message})
+                res.render('index', {erro: err.message})
             })
     } catch (err) {
-        res.status(500).render('index', { erro: err.message })
+        res.render('index', { erro: err.message })
     }
 }
 
@@ -26,7 +26,7 @@ async function createTask(req, res){
             res.redirect('/')
         })
     } catch (err) {
-        res.status(500).render('index', { erro: err.message })
+        res.render('index', { erro: err.message })
     }
 }
 
