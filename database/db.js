@@ -5,7 +5,7 @@ export default function connectMongoDB(){
         mongoose.set('strictQuery', true)
         mongoose
             .connect(
-                'mongodb+srv://root:admin@cluster0.ehevqhq.mongodb.net/?retryWrites=true&w=majority',
+                process.env.DATABASE_URI,
                 {
                     useNewUrlParser: true,
                     useUnifiedTopology: true
