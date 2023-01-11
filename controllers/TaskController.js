@@ -1,10 +1,16 @@
 import TaskModel from "../model/TaskModel.js"
 
+let message = ''
+let type = ''
+
 async function getAllTasks(req, res){
     try {
+        setTimeout(() => {
+            message = ''
+        }, 5000)
         await TaskModel.find()
             .then((tasks) => {
-                res.render('index', { tasks, task: null, taskDelete: null })
+                res.render('index', { tasks, task: null, taskDelete: null, message, type })
             })
             .catch(err => {
                 res.render('index', {erro: err.message})
@@ -18,12 +24,16 @@ async function createTask(req, res){
     const { task } = req.body
 
     if(!task){
-        return res.render('index',{ erro: "Informações invalidas!" })
+        message = "Insira um texto antes de adicionar"
+        type = 'danger'
+        return res.redirect('/')
     }
 
     try {
         await TaskModel.create({task})
             .then(() => {
+                message = 'Tarefa criada com sucesso'
+                type='success'
                 res.redirect('/')
             }).catch(error => {
                 res.render('index', { error })
@@ -42,9 +52,9 @@ async function getById(req, res){
                 TaskModel.find()
                     .then(tasks => {
                         if(method == 'update'){
-                            res.render('index', { task, tasks, taskDelete: null })
+                            res.render('index', { task, tasks, taskDelete: null, message, type })
                         }else{
-                            res.render('index', { task:null, tasks, taskDelete: task })
+                            res.render('index', { task:null, tasks, taskDelete: task, message, type })
                         }
                     })
             }).catch(error => {
@@ -61,6 +71,8 @@ async function updateOne(req, res){
     try {
         await TaskModel.updateOne({ _id: req.params.id }, {task})
             .then(() => {
+                message = 'Tarefa editada com sucesso'
+                type = 'success'
                 res.redirect('/')
             })
     } catch (error) {
@@ -73,6 +85,8 @@ async function deleteOne(req, res){
 
     try {
         await TaskModel.findByIdAndDelete(id)
+        message = 'Tarefa apagada com sucesso'
+        type = 'success'
         res.redirect('/')
     } catch (error) {
         res.render('index', { error })
