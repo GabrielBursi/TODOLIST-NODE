@@ -22,7 +22,7 @@
 
     <ul>
         <% tasks.forEach(task => { %>
-            <li><%= task.task %> | <%= task.date %> </li>
+            <li><%= task.task %> | <%= task.date.toLocaleDateString('pt-BR') %> </li>
             <a href="/getById/<%= task._id %>/update">Editar</a>
             <a href="/getById/<%= task._id %>/delete">Excluir</a>
         <% }); %>

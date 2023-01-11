@@ -12,7 +12,7 @@ const task = new Schema({
     },
     date: {
         type: Date,
-        default: new Date().toLocaleString()
+        default: Date.now()
     }
 })
 

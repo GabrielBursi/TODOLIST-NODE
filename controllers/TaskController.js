@@ -2,7 +2,7 @@ import TaskModel from "../model/TaskModel.js"
 
 async function getAllTasks(req, res){
     try {
-        TaskModel.find()
+        await TaskModel.find()
             .then((tasks) => {
                 res.render('index', { tasks, task: null, taskDelete: null })
             })
@@ -22,7 +22,7 @@ async function createTask(req, res){
     }
 
     try {
-        TaskModel.create({task})
+        await TaskModel.create({task})
             .then(() => {
                 res.redirect('/')
             }).catch(error => {
@@ -59,7 +59,7 @@ async function updateOne(req, res){
     const { task } = req.body
 
     try {
-        TaskModel.updateOne({ _id: req.params.id }, {task})
+        await TaskModel.updateOne({ _id: req.params.id }, {task})
             .then(() => {
                 res.redirect('/')
             })
