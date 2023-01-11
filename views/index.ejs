@@ -8,17 +8,38 @@
     <title>TodoList Node</title>
 </head>
 <body>
-
+    <% if(!task) { %>
     <form action="/create" method="POST">
         <input type="text" name="task" id="task" placeholder="Insira uma tarefa">
         <button id="add-btn" type="submit">Adicionar</button>
     </form>
+    <% } else { %>
+    <form action="/update/<%=task._id%>" method="POST">
+        <input type="text" name="task" id="task"  value="<%=task.task %>">
+        <button id="add-btn" type="submit">Atulizar</button>
+    </form>
+    <% } %>
 
     <ul>
         <% tasks.forEach(task => { %>
-            <li><%= task.task %> | <%= task.date %></li>
+            <li><%= task.task %> | <%= task.date %> </li>
+            <a href="/getById/<%= task._id %>/update">Editar</a>
+            <a href="/getById/<%= task._id %>/delete">Excluir</a>
         <% }); %>
     </ul>
+
+    <% if(taskDelete != null){ %>
+        <section id="modal">
+            <div id="card">
+                <a href="/">X</a>
+                <h2>Confirmação</h2>
+                <hr>
+                <p>Deseja apagar a tarefa: <%=taskDelete.task %> ?</p>
+                <a href="/">Não</a>
+                <a href="/delete/<%=taskDelete._id %>">Sim</a>
+            </div>
+        </section>
+    <% } %>
 
     <script src="script.js"></script>
 </body>
